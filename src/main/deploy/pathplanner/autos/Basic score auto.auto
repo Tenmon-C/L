@@ -19,19 +19,19 @@
         {
           "type": "named",
           "data": {
-            "name": null
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 5.0
           }
         },
         {
           "type": "named",
           "data": {
-            "name": null
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": null
+            "name": "Stop"
           }
         }
       ]
