@@ -16,11 +16,11 @@
 #include <pathplanner/lib/auto/NamedCommands.h>
 RobotContainer::RobotContainer() {
 
-  pathplanner::NamedCommands::registerCommand("Intake", std::make_shared<Intake>(&m_intake, 0.5));
+ pathplanner::NamedCommands::registerCommand("Intake", std::make_shared<Intake>(&m_intake, 0.5));
   pathplanner::NamedCommands::registerCommand("Outake", std::make_shared<Intake>(&m_intake, -0.5));
   pathplanner::NamedCommands::registerCommand("Shoot", std::make_shared<Shoot>(&m_intake, 0.5));
   pathplanner::NamedCommands::registerCommand("Stop", std::make_shared<Intake>(&m_intake, 0));
-  pathplanner::NamedCommands::registerCommand("Climb", m_climber.GoToMax());
+  //pathplanner::NamedCommands::registerCommand("Climb", C_motor.GoToMax());
   
   // Initialize all of your commands and subsystems here
 
@@ -66,20 +66,20 @@ m_driverController.LeftBumper().OnFalse(
 
 
 // Shoot the intake when the A button is held
-m_driverController.A().OnTrue(
+m_driverController.POVUp().OnTrue(
   frc2::cmd::Run(
     [this] { m_intake.Shooting(0.5); },
     {&m_intake}
   )
 );
 // Stop the intake when the A button is released
-m_driverController.A().OnFalse(
+m_driverController.POVUp().OnFalse(
   frc2::cmd::RunOnce(
     [this] { m_intake.Stop(); },
     {&m_intake}
   )
 );
-m_driverController.B().OnTrue(
+/*m_driverController.B().OnTrue(
   frc2::cmd::RunOnce(
     [this] {
       m_climber.GoToMax(); },{&m_climber}
@@ -90,8 +90,9 @@ m_driverController.X().OnTrue(
     [this] {
       m_climber.GoToRest(); },{&m_climber}
     )
-  );
-}
+    );
+*/
+    }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous

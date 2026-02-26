@@ -1,4 +1,5 @@
 #include "subsystems/IntakeSubsystem.h"
+
 IntakeSubsystem::IntakeSubsystem(int motor1CANID, int motor2CANID) 
 : Intake1(motor1CANID), Intake2(motor2CANID) 
 {
@@ -21,4 +22,7 @@ void IntakeSubsystem::Shooting(double percent) {
 void IntakeSubsystem::Stop() {
   Intake1.SetControl(ctre::phoenix6::controls::DutyCycleOut(0));
   Intake2.SetControl(ctre::phoenix6::controls::DutyCycleOut(0));
+}
+void IntakeSubsystem::Periodic() {
+  // This method will be called once per scheduler run
 }

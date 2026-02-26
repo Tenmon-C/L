@@ -3,8 +3,10 @@
   "robotLength": 0.9,
   "holonomicMode": false,
   "pathFolders": [
+    "Basic Complete Auto ",
     "Basic Drive Auto",
-    "Basic Score Auto"
+    "Basic Score Auto",
+    "Drive-Score-PickUp-Auto"
   ],
   "autoFolders": [
     "Basic Autos"

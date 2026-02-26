@@ -1,7 +1,8 @@
 #pragma once
-#include <frc2/command/Subsystem.h>
+#include <frc2/command/SubsystemBase.h>
 #include <ctre/phoenix6/TalonFX.hpp>
-class IntakeSubsystem : public frc2::Subsystem {
+
+class IntakeSubsystem : public frc2::SubsystemBase {
  public:
   IntakeSubsystem(int motor1CANID, int motor2CANID);
 

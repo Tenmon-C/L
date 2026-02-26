@@ -1,4 +1,4 @@
-#pragma once 
+/*#pragma once 
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/SubsystemBase.h> //Subsystem things
 #include <frc/controller/SimpleMotorFeedforward.h>
@@ -18,4 +18,4 @@ class ClimberSubsystem : public frc2::SubsystemBase {
             ctre::phoenix6::hardware::TalonFX C_motor;
             
             ctre::phoenix6::controls::PositionVoltage m_request = ctre::phoenix6::controls::PositionVoltage{0_tr}.WithSlot(0).WithOverrideBrakeDurNeutral(true);
-};
+};*/
