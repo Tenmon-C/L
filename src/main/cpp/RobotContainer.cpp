@@ -10,17 +10,19 @@
 #include "commands/ExampleCommand.h"
 #include "commands/Intake.h"
 #include "commands/Shoot.h"
+#include "commands/Climb.h"
+
 
 #include <pathplanner/lib/commands/PathPlannerAuto.h>
 #include <pathplanner/lib/events/EventTrigger.h>
 #include <pathplanner/lib/auto/NamedCommands.h>
 RobotContainer::RobotContainer() {
-
- pathplanner::NamedCommands::registerCommand("Intake", std::make_shared<Intake>(&m_intake, 0.5));
+  
+  pathplanner::NamedCommands::registerCommand("Intake", std::make_shared<Intake>(&m_intake, 0.5));
   pathplanner::NamedCommands::registerCommand("Outake", std::make_shared<Intake>(&m_intake, -0.5));
   pathplanner::NamedCommands::registerCommand("Shoot", std::make_shared<Shoot>(&m_intake, 0.5));
   pathplanner::NamedCommands::registerCommand("Stop", std::make_shared<Intake>(&m_intake, 0));
-  //pathplanner::NamedCommands::registerCommand("Climb", C_motor.GoToMax());
+  pathplanner::NamedCommands::registerCommand("Climb", std::make_shared<max>(&m_climber));
   
   // Initialize all of your commands and subsystems here
 
@@ -79,19 +81,19 @@ m_driverController.POVUp().OnFalse(
     {&m_intake}
   )
 );
-/*m_driverController.B().OnTrue(
-  frc2::cmd::RunOnce(
-    [this] {
-      m_climber.GoToMax(); },{&m_climber}
+m_operatorController.A().OnTrue(
+  frc2::cmd::Run(
+    [this] { m_climber.max(); },
+    {&m_climber}
   )
 );
-m_driverController.X().OnTrue(
-  frc2::cmd::RunOnce(
-    [this] {
-      m_climber.GoToRest(); },{&m_climber}
-    )
-    );
-*/
+m_operatorController.B().OnTrue(
+  frc2::cmd::Run(
+    [this] { m_climber.rest(); },
+    {&m_climber}
+  )
+);
+
     }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand() {

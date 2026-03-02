@@ -37,6 +37,7 @@ class Robot : public frc::TimedRobot {
    ctre::phoenix6::controls::DutyCycleOut m_rightOut{0};
 
    frc::XboxController m_driverController{0};
+  frc::XboxController m_operatorController{1};
   // Have it empty by default so that if testing teleop it
   // doesn't have undefined behavior and potentially crash.
   std::optional<frc2::CommandPtr> m_autonomousCommand;

@@ -1,21 +1,26 @@
-/*#pragma once 
-#include <frc2/command/CommandPtr.h>
+#pragma once
+
 #include <frc2/command/SubsystemBase.h> //Subsystem things
-#include <frc/controller/SimpleMotorFeedforward.h>
-#include <frc/DigitalInput.h>
+
+#include <ctre/phoenix6/configs/Configuration.hpp>
+
 #include "Config.h"
-#include <ctre/phoenix6/TalonFX.hpp>
+
 
 class ClimberSubsystem : public frc2::SubsystemBase {
     public: 
-        ClimberSubsystem(int motorCANID);
+        ClimberSubsystem();
+        void raise();
+        void lower();
+        void stop();
+        void max();
+        void rest();
+        units::turn_t getPIDPosition();
+        bool isAtSetPoint();
+        bool isAtRest();
 
-        frc2::CommandPtr GoToRest();
-        frc2::CommandPtr GoToMax();
-        void InitSendable(wpi::SendableBuilder& builder) override;
-   
+
     private: 
-            ctre::phoenix6::hardware::TalonFX C_motor;
-            
-            ctre::phoenix6::controls::PositionVoltage m_request = ctre::phoenix6::controls::PositionVoltage{0_tr}.WithSlot(0).WithOverrideBrakeDurNeutral(true);
-};*/
+        ctre::phoenix6::hardware::TalonFX m_climb{ClimberCostants::ClimbMotorID, CAN};
+        units::turn_t m_setPoint = 0_tr;
+};
