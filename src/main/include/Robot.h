@@ -26,12 +26,12 @@ class Robot : public frc::TimedRobot {
   void SimulationPeriodic() override;
 
  private:
-   static constexpr ctre::phoenix6::CANBus kCANBus{"canivore"};
+   static constexpr ctre::phoenix6::CANBus kCANBus{"rio"};
 
-   ctre::phoenix6::hardware::TalonFX m_leftLeader{0, kCANBus};
-   ctre::phoenix6::hardware::TalonFX m_rightLeader{1, kCANBus};
-   ctre::phoenix6::hardware::TalonFX m_leftFollower{2, kCANBus};
-   ctre::phoenix6::hardware::TalonFX m_rightFollower{3, kCANBus};
+   ctre::phoenix6::hardware::TalonFX m_leftLeader{0};
+   ctre::phoenix6::hardware::TalonFX m_rightLeader{2};
+   ctre::phoenix6::hardware::TalonFX m_leftFollower{1};
+   ctre::phoenix6::hardware::TalonFX m_rightFollower{3};
 
    ctre::phoenix6::controls::DutyCycleOut m_leftOut{0};
    ctre::phoenix6::controls::DutyCycleOut m_rightOut{0};

@@ -5,8 +5,11 @@
 #include "Robot.h"
 using namespace ctre::phoenix6;
 #include <frc2/command/CommandScheduler.h>
+#include <frc/smartdashboard/SmartDashboard.h>
+#include <wpi/print.h>
 
 Robot::Robot() {
+
      // start with factory-default configs
    configs::MotorOutputConfigs currentConfigs{};
 
@@ -57,17 +60,6 @@ void Robot::AutonomousInit() {
 }
 
 void Robot::AutonomousPeriodic() {
-     // retrieve joystick inputs
-   auto fwd = -m_driverController.GetLeftY();
-   auto rot = m_driverController.GetRightX();
-
-   // modify control requests
-   m_leftOut.Output = fwd + rot;
-   m_rightOut.Output = fwd - rot;
-
-   // send control requests
-   m_leftLeader.SetControl(m_leftOut);
-   m_rightLeader.SetControl(m_rightOut);
 }
 
 void Robot::TeleopInit() {
@@ -83,7 +75,19 @@ void Robot::TeleopInit() {
 /**
  * This function is called periodically during operator control.
  */
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() {
+       // retrieve joystick inputs
+   auto fwd = -m_driverController.GetLeftY();
+   auto rot = m_driverController.GetRightX();
+
+   // modify control requests
+   m_leftOut.Output = fwd + rot;
+   m_rightOut.Output = fwd - rot;
+
+   // send control requests
+   m_leftLeader.SetControl(m_leftOut);
+   m_rightLeader.SetControl(m_rightOut);
+}
 
 /**
  * This function is called periodically during test mode.

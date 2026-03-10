@@ -37,7 +37,7 @@ void RobotContainer::ConfigureBindings() {
 m_driverController.RightBumper().OnTrue(
   frc2::cmd::Run(
     [this] {
-      m_intake.SetIntake(0.5);
+      m_intake.SetIntake(1);
     },
     {&m_intake}
   )
@@ -54,7 +54,7 @@ m_driverController.RightBumper().OnFalse(
 // Run the intake in reverse when the left bumper is held
 m_driverController.LeftBumper().OnTrue(
   frc2::cmd::Run(
-    [this] {  m_intake.SetIntake(-0.5); },
+    [this] {  m_intake.SetIntake(-1); },
     {&m_intake}
   )
 );
@@ -70,7 +70,7 @@ m_driverController.LeftBumper().OnFalse(
 // Shoot the intake when the A button is held
 m_driverController.POVUp().OnTrue(
   frc2::cmd::Run(
-    [this] { m_intake.Shooting(0.5); },
+    [this] { m_intake.Shooting(1); },
     {&m_intake}
   )
 );
@@ -93,9 +93,43 @@ m_operatorController.B().OnTrue(
     {&m_climber}
   )
 );
-
-    }
-
+m_operatorController.POVUp().OnTrue(
+  frc2::cmd::Run(
+    [this] { m_intake.motor1Test(0.5); },
+    {&m_intake}
+  )
+);
+m_operatorController.POVDown().OnTrue(
+  frc2::cmd::Run(
+    [this] { m_intake.motor1Test(0); },
+    {&m_intake}
+  )
+);
+m_operatorController.POVLeft().OnTrue(
+  frc2::cmd::Run(
+    [this] { m_intake.motor2Test(0.5); },
+    {&m_intake}
+  )
+);
+m_operatorController.POVLeft().OnFalse(
+  frc2::cmd::RunOnce(
+    [this] { m_intake.motor2Test(0); },
+    {&m_intake}
+  )
+);
+m_operatorController.POVRight().OnTrue(
+  frc2::cmd::Run(
+    [this] { m_intake.motor3Test(0.5); },
+    {&m_intake}
+  )
+);
+m_operatorController.POVRight().OnFalse(
+  frc2::cmd::RunOnce(
+    [this] { m_intake.motor3Test(0); },
+    {&m_intake}
+  )
+);
+}
 frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
   return pathplanner::PathPlannerAuto("Basic Drive Forward").ToPtr();

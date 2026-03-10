@@ -40,7 +40,7 @@ class RobotContainer {
 
   // The robot's subsystems are defined here...
   ExampleSubsystem m_subsystem;
-    IntakeSubsystem m_intake{5, 6};
+    IntakeSubsystem m_intake{5, 6, 7};
     ClimberSubsystem m_climber;
   void ConfigureBindings();
 };
