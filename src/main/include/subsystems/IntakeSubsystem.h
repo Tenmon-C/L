@@ -7,9 +7,6 @@ class IntakeSubsystem : public frc2::SubsystemBase {
   IntakeSubsystem(int motor1CANID, int motor2CANID, int motor3CANID);
 
   void SetIntake(double percent);
-  void motor1Test(double percent);
-  void motor2Test(double percent);
-  void motor3Test(double percent);
   void Shooting(double percent);
   void Stop();
 

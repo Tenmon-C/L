@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "1st Movement"
+          }
+        },
+        {
           "type": "wait",
           "data": {
             "waitTime": 2.0
@@ -26,12 +32,6 @@
           "type": "named",
           "data": {
             "name": "Stop"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Drive to Score"
           }
         }
       ]

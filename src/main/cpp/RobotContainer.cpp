@@ -82,51 +82,15 @@ m_driverController.POVUp().OnFalse(
   )
 );
 m_operatorController.A().OnTrue(
-  frc2::cmd::Run(
+  frc2::cmd::RunOnce(
     [this] { m_climber.max(); },
     {&m_climber}
   )
 );
 m_operatorController.B().OnTrue(
-  frc2::cmd::Run(
+  frc2::cmd::RunOnce(
     [this] { m_climber.rest(); },
     {&m_climber}
-  )
-);
-m_operatorController.POVUp().OnTrue(
-  frc2::cmd::Run(
-    [this] { m_intake.motor1Test(0.5); },
-    {&m_intake}
-  )
-);
-m_operatorController.POVDown().OnTrue(
-  frc2::cmd::Run(
-    [this] { m_intake.motor1Test(0); },
-    {&m_intake}
-  )
-);
-m_operatorController.POVLeft().OnTrue(
-  frc2::cmd::Run(
-    [this] { m_intake.motor2Test(0.5); },
-    {&m_intake}
-  )
-);
-m_operatorController.POVLeft().OnFalse(
-  frc2::cmd::RunOnce(
-    [this] { m_intake.motor2Test(0); },
-    {&m_intake}
-  )
-);
-m_operatorController.POVRight().OnTrue(
-  frc2::cmd::Run(
-    [this] { m_intake.motor3Test(0.5); },
-    {&m_intake}
-  )
-);
-m_operatorController.POVRight().OnFalse(
-  frc2::cmd::RunOnce(
-    [this] { m_intake.motor3Test(0); },
-    {&m_intake}
   )
 );
 }

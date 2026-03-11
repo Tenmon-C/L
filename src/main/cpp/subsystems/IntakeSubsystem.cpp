@@ -10,15 +10,6 @@ void IntakeSubsystem::SetIntake(double percent) {
   Intake2.SetControl(ctre::phoenix6::controls::DutyCycleOut(-percent));
   Indexer.SetControl(ctre::phoenix6::controls::DutyCycleOut(percent));
 }
-void IntakeSubsystem::motor1Test(double percent) {
-  Intake1.SetControl(ctre::phoenix6::controls::DutyCycleOut(percent));
-}
-void IntakeSubsystem::motor2Test(double percent) {
-  Intake2.SetControl(ctre::phoenix6::controls::DutyCycleOut(percent));
-}
-void IntakeSubsystem::motor3Test(double percent) {
-  Indexer.SetControl(ctre::phoenix6::controls::DutyCycleOut(percent));
-}
 
 void IntakeSubsystem::Shooting(double percent) {
   Intake1.SetControl(ctre::phoenix6::controls::DutyCycleOut(-percent));

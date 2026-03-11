@@ -33,6 +33,24 @@
           "data": {
             "name": "Stop"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "M.Climb"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Climb"
+          }
         }
       ]
     }
