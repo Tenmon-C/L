@@ -1,4 +1,4 @@
-#include "commands/Climb.h"
+/*#include "commands/Climb.h"
 
 max::max(ClimberSubsystem* climber)
     : m_climber(climber) {
@@ -20,4 +20,4 @@ void max::End(bool interrupted) {
 
 bool max::IsFinished() {
     return m_climber->isAtSetPoint();
-}
+}*/

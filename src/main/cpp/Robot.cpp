@@ -3,27 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "Robot.h"
+#include "RobotContainer.h"
 using namespace ctre::phoenix6;
 #include <frc2/command/CommandScheduler.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <wpi/print.h>
 
 Robot::Robot() {
-
-     // start with factory-default configs
-   configs::MotorOutputConfigs currentConfigs{};
-
-   // The left motor is CCW+
-   currentConfigs.Inverted = signals::InvertedValue::CounterClockwise_Positive;
-   m_leftLeader.GetConfigurator().Apply(currentConfigs);
-
-   // The right motor is CW+
-   currentConfigs.Inverted = signals::InvertedValue::Clockwise_Positive;
-   m_rightLeader.GetConfigurator().Apply(currentConfigs);
-
-   // Ensure the followers are following their respective leader
-   m_leftFollower.SetControl(controls::Follower{m_leftLeader.GetDeviceID(), false});
-   m_rightFollower.SetControl(controls::Follower{m_rightLeader.GetDeviceID(), false});
 }
 
 /**
@@ -52,6 +38,7 @@ void Robot::DisabledPeriodic() {}
  * RobotContainer} class.
  */
 void Robot::AutonomousInit() {
+  
   m_autonomousCommand = m_container.GetAutonomousCommand();
 
   if (m_autonomousCommand) {
@@ -77,16 +64,7 @@ void Robot::TeleopInit() {
  */
 void Robot::TeleopPeriodic() {
        // retrieve joystick inputs
-   auto fwd = -m_driverController.GetLeftY();
-   auto rot = m_driverController.GetRightX();
 
-   // modify control requests
-   m_leftOut.Output = fwd + rot;
-   m_rightOut.Output = fwd - rot;
-
-   // send control requests
-   m_leftLeader.SetControl(m_leftOut);
-   m_rightLeader.SetControl(m_rightOut);
 }
 
 /**

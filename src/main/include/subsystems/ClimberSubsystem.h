@@ -1,26 +1,17 @@
 #pragma once
-
-#include <frc2/command/SubsystemBase.h> //Subsystem things
-
-#include <ctre/phoenix6/configs/Configuration.hpp>
-
-#include "Config.h"
-
+#include <frc2/command/SubsystemBase.h>
+#include <ctre/phoenix6/TalonFX.hpp>
 
 class ClimberSubsystem : public frc2::SubsystemBase {
-    public: 
-        ClimberSubsystem();
-        void raise();
-        void lower();
-        void stop();
-        void max();
-        void rest();
-        units::turn_t getPIDPosition();
-        bool isAtSetPoint();
-        bool isAtRest();
+ public:
+  ClimberSubsystem(int motorCANID);
 
+  void Raise(double percent);
+  void Lower(double percent);
+  void Stop();
 
-    private: 
-        ctre::phoenix6::hardware::TalonFX m_climb{ClimberCostants::ClimbMotorID, CAN};
-        units::turn_t m_setPoint = 0_tr;
+  void Periodic() override;
+
+ private:
+  ctre::phoenix6::hardware::TalonFX ClimberMotor;
 };

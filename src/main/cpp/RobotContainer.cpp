@@ -22,12 +22,25 @@ RobotContainer::RobotContainer() {
   pathplanner::NamedCommands::registerCommand("Outake", std::make_shared<Intake>(&m_intake, -0.5));
   pathplanner::NamedCommands::registerCommand("Shoot", std::make_shared<Shoot>(&m_intake, 0.5));
   pathplanner::NamedCommands::registerCommand("Stop", std::make_shared<Intake>(&m_intake, 0));
-  pathplanner::NamedCommands::registerCommand("Climb", std::make_shared<max>(&m_climber));
+ // pathplanner::NamedCommands::registerCommand("Climb", std::make_shared<max>(&m_climber));
   
   // Initialize all of your commands and subsystems here
 
   // Configure the button bindings
   ConfigureBindings();
+
+  m_drive.SetDefaultCommand(
+  frc2::cmd::Run(
+    [this] {
+     double fwd = frc::ApplyDeadband(-m_driverController.GetLeftY(), 0.05);
+     double rot = frc::ApplyDeadband(m_driverController.GetRightX(), 0.05);  
+
+      m_drive.ArcadeDrive(fwd, rot);
+    },
+    {&m_drive}
+  )
+);
+  
 }
 
 void RobotContainer::ConfigureBindings() {
@@ -83,18 +96,80 @@ m_driverController.POVUp().OnFalse(
 );
 m_operatorController.A().OnTrue(
   frc2::cmd::RunOnce(
-    [this] { m_climber.max(); },
+    [this] { m_climber.Raise(0.8); },
+    {&m_climber}
+  )
+);
+m_operatorController.A().OnFalse(
+  frc2::cmd::RunOnce(
+    [this] { m_climber.Stop(); },
     {&m_climber}
   )
 );
 m_operatorController.B().OnTrue(
   frc2::cmd::RunOnce(
-    [this] { m_climber.rest(); },
+    [this] { m_climber.Lower(0.8); },
+    {&m_climber}
+  )
+);
+m_operatorController.B().OnFalse(
+  frc2::cmd::RunOnce(
+    [this] { m_climber.Stop(); },
     {&m_climber}
   )
 );
 }
 frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
-  return pathplanner::PathPlannerAuto("Basic Drive Forward").ToPtr();
+  return frc2::cmd::Sequence(
+
+    // DRIVE FORWARD
+    frc2::cmd::RunOnce([this] {
+      m_drive.ArcadeDrive(0.4, 0);
+    }, {&m_drive}),
+
+    frc2::cmd::Wait(units::second_t(2)),
+
+    // STOP DRIVE
+    frc2::cmd::RunOnce([this] {
+      m_drive.Stop();
+    }, {&m_drive}),
+
+    // SHOOT
+    frc2::cmd::RunOnce([this] {
+      m_intake.Shooting(1);
+    }, {&m_intake}),
+
+    frc2::cmd::Wait(units::second_t(3)),
+
+    // STOP SHOOTER
+    frc2::cmd::RunOnce([this] {
+      m_intake.Stop();
+    }, {&m_intake}),
+
+    // DRIVE BACKWARD
+    frc2::cmd::RunOnce([this] {
+      m_drive.ArcadeDrive(-0.4, 0);
+    }, {&m_drive}),
+
+    frc2::cmd::Wait(units::second_t(2)),
+
+    // STOP DRIVE
+    frc2::cmd::RunOnce([this] {
+      m_drive.Stop();
+    }, {&m_drive}),
+
+    // CLIMB
+    frc2::cmd::RunOnce([this] {
+      m_climber.Raise(0.8);
+    }, {&m_climber}),
+
+    frc2::cmd::Wait(units::second_t(3)),
+
+    // STOP CLIMBER
+    frc2::cmd::RunOnce([this] {
+      m_climber.Stop();
+    }, {&m_climber})
+
+  );
 }

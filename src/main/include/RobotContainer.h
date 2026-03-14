@@ -11,6 +11,7 @@
 #include "subsystems/ExampleSubsystem.h"
 #include "subsystems/IntakeSubsystem.h"
 #include "subsystems/ClimberSubsystem.h"
+#include "subsystems/DriveSubsystem.h"
 #include "Config.h"
 
 /**
@@ -41,6 +42,7 @@ class RobotContainer {
   // The robot's subsystems are defined here...
   ExampleSubsystem m_subsystem;
     IntakeSubsystem m_intake{5, 6, 7};
-    ClimberSubsystem m_climber;
+    ClimberSubsystem m_climber{8};
+    DriveSubsystem m_drive;
   void ConfigureBindings();
 };
